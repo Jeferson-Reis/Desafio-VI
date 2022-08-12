@@ -1,0 +1,93 @@
+<app-menu></app-menu>
+<h3 class="text-center text-primary fw-bold m-3">Dashboard Ford</h3>
+<div class="row justify-content-center">
+  <div class="col-md-2">
+    <div class="card h-100 text-center border-dark">
+      <div class="card-header">
+        <h5>
+          Veículo
+        </h5>
+      </div>
+      <div class="card-body">
+
+        <select class="form-control" [(ngModel)]="selecionado" (ngModelChange)="mudarVeiculo()">
+          <option *ngFor="let v of veiculos$" [ngValue]="v.id">{{v.vehicle}} </option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-2">
+    <div class="card border-dark">
+      <div class="card-header">
+        <h5>
+          Total de Vendas
+        </h5>
+      </div>
+      <div class="card-body">
+        <h3 *ngIf="veiculo$" class="card-title text-primary">{{veiculo$.volumetotal}}</h3>
+        <p class="card-text">Unid.</p>
+
+      </div>
+    </div>
+  </div>
+  <div class="col-md-2">
+    <div class="card border-dark">
+      <div class="card-header">
+        <h5>
+          Conectados
+        </h5>
+      </div>
+      <div class="card-body border-dark">
+        <h3 *ngIf="veiculo$" class="card-title  text-primary">{{veiculo$.connected}}</h3>
+        <p class="card-text">Unid.</p>
+
+      </div>
+    </div>
+  </div>
+  <div class="col-md-2">
+    <div class="card border-dark">
+      <div class="card-header">
+        <h5>
+          Update Softwares
+        </h5>
+      </div>
+      <div class="card-body">
+        <h3 *ngIf="veiculo$" class="card-title text-primary">{{veiculo$.softwareUpdates}}</h3>
+        <p class="card-text">Unid.</p>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row justify-content-center">
+  <img *ngIf="veiculo$" class="img-fluid col-md-6" src="assets/img/{{veiculo$.vehicle.toLowerCase()}}.png" alt=""
+    srcset="">
+</div>
+
+<table class="table table-primary fixed-bottom">
+  <thead>
+    <tr>
+      <th scope="col">Código-Vin</th>
+      <th scope="col">Odômetro</th>
+      <th scope="col">Nível de Combustível</th>
+      <th scope="col">Status</th>
+      <th scope="col">Lat.</th>
+      <th scope="col">Long.</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <form (ngSubmit)="obterVeiculoPorVin()">
+          <input type="text" [(ngModel)]="vinInput" name="vinInput">
+        </form>
+      </td>
+      <td>{{veiculoData$?.odometer|| 0}} Km.</td>
+      <td>{{veiculoData$?.fuelLevel || 0}} %</td>
+      <td>{{veiculoData$?.status|| 'null'}}</td>
+      <td>{{veiculoData$?.lat || 0}}</td>
+      <td>{{veiculoData$?.long|| 0}}</td>
+    </tr>
+  </tbody>
+</table>
